@@ -43,10 +43,12 @@
 
 import glob
 import os.path
+
 def get_files_list():
 	migrations = 'Migrations'
 	files = glob.glob(os.path.join(migrations, "*.sql"))
 	return files
+
 def ask_the_loop(files):
 	files = get_files_list()
 	while True:
@@ -54,11 +56,9 @@ def ask_the_loop(files):
 		my_file_list = []
 		for my_file in files:
 			with open(my_file, "r") as f:
-				lines = f.readlines()
-				for line in lines:
-					if my_input in line:
-						my_file_list.append(my_file)
-						break
+				lines = f.read()
+				if my_input in lines:
+					my_file_list.append(my_file)
 		files = my_file_list
 		for x in files:
 			print("{}\n".format(x))
